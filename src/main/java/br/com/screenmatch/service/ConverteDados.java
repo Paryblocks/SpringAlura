@@ -1,16 +1,31 @@
 package br.com.screenmatch.service;
 
-import br.com.screenmatch.model.DadosSerie;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
 
-public class ConverteDados implements IConverteDados{
+import java.util.List;
+
+public class ConverteDados implements IConverteDados {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public <T> T obterDados(String json, Class<T> classe) {
         try {
             return mapper.readValue(json, classe);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public <T> List<T> obterLista(String json, Class<T> classe) {
+        // Como o metodo quer retornar uma lista
+        // Cria uma lista da classe informada com o mapper
+        CollectionType lista = mapper.getTypeFactory()
+                .constructCollectionType(List.class, classe);
+        try {
+            return mapper.readValue(json, lista);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

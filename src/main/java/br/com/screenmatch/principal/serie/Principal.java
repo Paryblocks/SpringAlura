@@ -1,9 +1,9 @@
-package br.com.screenmatch.principal;
+package br.com.screenmatch.principal.serie;
 
-import br.com.screenmatch.model.DadosEpisodio;
-import br.com.screenmatch.model.DadosSerie;
-import br.com.screenmatch.model.DadosTemporada;
-import br.com.screenmatch.model.Episodio;
+import br.com.screenmatch.model.serie.DadosEpisodio;
+import br.com.screenmatch.model.serie.DadosSerie;
+import br.com.screenmatch.model.serie.DadosTemporada;
+import br.com.screenmatch.model.serie.Episodio;
 import br.com.screenmatch.service.ConsumoApi;
 import br.com.screenmatch.service.ConverteDados;
 
