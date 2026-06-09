@@ -28,8 +28,10 @@ public class Serie {
     private String atores;
     private String poster;
     private String sinopse;
-    // Indica que deve ignorar atributo
-    @Transient
+    // @Transient Indica que deve ignorar atributo
+    // cascade faz com que o que rolar com serie, rola com episodio
+    // fetchType Eager faz com que ele carregue os episodios msm q n chame
+    @OneToMany(mappedBy = "serie", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Episodio> episodios = new ArrayList<>();
 
     // JPA EXIGE a existencia de um construtor padrão para recuperar dados
@@ -52,7 +54,10 @@ public class Serie {
         return episodios;
     }
 
+    // Para cada episodio é necessário informar que essas serie
+    // é sua chave entrangeira por meio do setSerie(this)
     public void setEpisodios(List<Episodio> episodios) {
+        episodios.forEach(e -> e.setSerie(this));
         this.episodios = episodios;
     }
 
@@ -128,6 +133,7 @@ public class Serie {
                 ", genero=" + genero +
                 ", atores='" + atores + '\'' +
                 ", poster='" + poster + '\'' +
-                ", sinopse='" + sinopse + '\'';
+                ", sinopse='" + sinopse + '\'' +
+                ", episodios='" + episodios + '\'';
     }
 }
